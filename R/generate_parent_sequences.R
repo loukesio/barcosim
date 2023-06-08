@@ -1,13 +1,14 @@
-#' Generate parent sequences
+#' Generate DNA sequences by merging initial and random sequences
 #'
-#'`gpseq` creates DNA sequences of certain length. These sequences are indetical apart from a specific range that refers to barcodes and its variable.
+#' This function generates DNA sequences by merging an initial DNA sequence
+#' with random sequences within a specified range.
 #'
-#' @param num_sequences A numeric value
-#' @param seq_length A numeric value
-#' @param range_start A numeric value
-#' @param range_end A numeric value
+#' @param num_sequences Number of sequences to generate (positive integer)
+#' @param seq_length Length of each DNA sequence (positive integer)
+#' @param range_start Start position of the range within the sequence (integer, 1 to seq_length)
+#' @param range_end End position of the range within the sequence (integer, 1 to seq_length, greater than or equal to range_start)
+#' @return A character vector of generated DNA sequences
 #'
-#' @return A character vector, DNA sequences.
 #' @examples
 #' # Create 4 DNA sequneces, 150 bp each, variable in the are between 53-78.
 #' gpseq(4,150,53,78)
@@ -16,7 +17,33 @@
 
 gpseq <- function(num_sequences, seq_length, range_start, range_end) {
 
-  # Generate initial DNA sequence of 150 bp
+  # Convert inputs to integers
+  num_sequences <- as.integer(num_sequences)
+  seq_length <- as.integer(seq_length)
+  range_start <- as.integer(range_start)
+  range_end <- as.integer(range_end)
+
+  # Check if all inputs are integers
+  if (!is.integer(num_sequences) || !is.integer(seq_length) || !is.integer(range_start) || !is.integer(range_end)) {
+    stop("All inputs must be integers.")
+  }
+
+  # Check if the number of sequences is positive
+  if (num_sequences <= 0) {
+    stop("Number of sequences must be a positive integer.")
+  }
+
+  # Check if the sequence length is positive
+  if (seq_length <= 0) {
+    stop("Sequence length must be a positive integer.")
+  }
+
+  # Check if the range start and end positions are within the sequence length
+  if (range_start < 1 || range_start > seq_length || range_end < 1 || range_end > seq_length || range_start > range_end) {
+    stop("Invalid range positions. Range start and end must be valid positions within the sequence length.")
+  }
+
+  # Generate initial DNA sequence of seq_length bp
   initial_seq <- paste(sample(c("A", "C", "G", "T"), seq_length, replace = TRUE), collapse = "")
 
   # Create multiple copies of the initial sequence
@@ -33,3 +60,7 @@ gpseq <- function(num_sequences, seq_length, range_start, range_end) {
 
   return(final_seqs)
 }
+
+
+gpseq(10, 10, 3, 6)
+
