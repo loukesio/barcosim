@@ -16,6 +16,26 @@
 #'
 #' @export
 r_gpseq <- function(dna_seq, num_replicates, error_rate) {
+
+  # Validate input: dna_seq
+  if (!is.character(dna_seq) || any(!nzchar(dna_seq))) {
+    stop("Error: dna_seq should be a non-empty string or vector of DNA sequences.")
+  }
+
+  # Validate input: num_replicates
+  if (!is.integer(num_replicates) || num_replicates <= 0) {
+    if (is.numeric(num_replicates) && num_replicates %% 1 == 0 && num_replicates > 0) {
+      num_replicates <- as.integer(num_replicates)
+    } else {
+      stop("Error: num_replicates should be a positive integer.")
+    }
+  }
+
+  # Validate input: error_rate
+  if (!is.numeric(error_rate) || error_rate < 0 || error_rate > 1) {
+    stop("Error: error_rate should be a number between 0 and 1.")
+  }
+
   # Create a vector to store the replicated sequences
   replicated_dna <- vector(mode = "list", length = num_replicates * length(dna_seq))
 
