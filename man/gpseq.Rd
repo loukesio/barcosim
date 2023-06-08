@@ -2,24 +2,25 @@
 % Please edit documentation in R/generate_parent_sequences.R
 \name{gpseq}
 \alias{gpseq}
-\title{Generate parent sequences}
+\title{Generate DNA sequences by merging initial and random sequences}
 \usage{
 gpseq(num_sequences, seq_length, range_start, range_end)
 }
 \arguments{
-\item{num_sequences}{A numeric value}
+\item{num_sequences}{Number of sequences to generate (positive integer)}
 
-\item{seq_length}{A numeric value}
+\item{seq_length}{Length of each DNA sequence (positive integer)}
 
-\item{range_start}{A numeric value}
+\item{range_start}{Start position of the range within the sequence (integer, 1 to seq_length)}
 
-\item{range_end}{A numeric value}
+\item{range_end}{End position of the range within the sequence (integer, 1 to seq_length, greater than or equal to range_start)}
 }
 \value{
-A character vector, DNA sequences.
+A character vector of generated DNA sequences
 }
 \description{
-`gpseq` creates DNA sequences of certain length. These sequences are indetical apart from a specific range that refers to barcodes and its variable.
+This function generates DNA sequences by merging an initial DNA sequence
+with random sequences within a specified range.
 }
 \examples{
 # Create 4 DNA sequneces, 150 bp each, variable in the are between 53-78.
