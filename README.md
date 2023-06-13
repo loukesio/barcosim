@@ -103,4 +103,10 @@ r_gpseq(df1, 4, 0.01)
 
 <sup>Created on 2023-04-15 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
 
+### 3. Use the `r_gpseq_csub` command to replicate parent sequences with a certain error rate and a certain subsitution rate.
 
+```
+dna_seq <- c("AAGA","AATC")
+substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.4, " " = 0.1)
+r_gpseq_csub(dna_seq,3,substitution_probs)
+```
