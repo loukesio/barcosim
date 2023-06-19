@@ -22,12 +22,12 @@ library(BarcoSim)
 ### 1. Use the `gpseq` command to generate the parent sequences.
 
 ``` r
-suppressPackageStartupMessages(library(Biostrings))
-suppressPackageStartupMessages(library(BarcoSim))
-suppressPackageStartupMessages(library(dplyr))
+library(Biostrings) # Provides tools for working with biological sequences, such as DNA, RNA, and protein sequences
+library(BarcoSim)   # BarcoSim: A package for simulating barcoded sequencing dat
+library(dplyr)      # A powerful package for data manipulation and transformation,
 
 
-set.seed(123)
+set.seed(123)       # sets the random seed to ensure the reproducibility of a random processes (generation of sequences)
 
 df1 <- gpseq(10, 10, 3, 6)
 
@@ -52,9 +52,9 @@ gpseq(10, 10, 3, 6) %>%
 ### 2. Use the `r_gpseq` command to replicate parent sequences and make a barcode data set.
 
 ``` r
-suppressPackageStartupMessages(library(Biostrings))
-suppressPackageStartupMessages(library(BarcoSim))
-suppressPackageStartupMessages(library(dplyr))
+library(Biostrings)
+library(BarcoSim)
+library(dplyr)
 
 df1 <- gpseq(10, 10, 3, 6)
 r_gpseq(df1, 4, 0.01) 
