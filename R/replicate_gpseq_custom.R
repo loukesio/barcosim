@@ -15,10 +15,10 @@
 #' dna_seq <- c("AAGA", "AATC")
 #' num_replicates <- 3
 #' error_rate <- 0.1
-#' substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.3, "" = 0.1)
+#' substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.3, " " = 0.1)
 #'
 #' # Generate barcode sequences
-#' barcode_sequences <- r_generate_barcode(dna_seq, num_replicates, error_rate, substitution_probs)
+#' barcode_sequences <- r_gpseq_csub(dna_seq, num_replicates, error_rate, substitution_probs)
 #'
 #' # Print the resulting barcode sequences
 #' print(barcode_sequences)
@@ -26,7 +26,7 @@
 #' @export
 #'
 
-r_gpseq_csub <- r_generate_barcode <- function(dna_seq, num_replicates, error_rate, substitution_probs) {
+r_gpseq_csub  <- function(dna_seq, num_replicates, error_rate, substitution_probs) {
 
   # Validate input: dna_seq
   if (!is.character(dna_seq) || any(!nzchar(dna_seq))) {
