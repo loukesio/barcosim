@@ -4,24 +4,34 @@
 \alias{r_gpseq_csub}
 \title{Create barcode sequences from parent sequences but with non random substitutions}
 \usage{
-r_gpseq_csub(dna_seq, num_replicates, substitution_probs)
+r_gpseq_csub(dna_seq, num_replicates, error_rate, substitution_probs)
 }
 \arguments{
-\item{dna_seq}{A character, output from gpseq}
+\item{dna_seq}{A character vector of DNA sequences.}
 
-\item{num_replicates}{A numeric value}
+\item{num_replicates}{An integer specifying the number of replicates for each DNA sequence.}
 
-\item{substitution_probs}{A list of probabilities for each based pair or an indel to appear}
+\item{error_rate}{A number between 0 and 1 representing the error rate for base substitution.}
+
+\item{substitution_probs}{A list of length 5 containing the substitution probabilities for each base (A, C, G, T, and empty string).}
 }
 \value{
-A data.frame
+A data frame containing the replicated barcode sequences.
 }
 \description{
 #for each the parent sequence coming from the gpseq function, create n offspring sequences with a substitution rate of your interest.
 }
 \examples{
-dna_seq <- c("AAGA","AATC")
-substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.4, " " = 0.1)
-r_gpseq_csub(dna_seq,3,substitution_probs)
+# Example data
+dna_seq <- c("AAGA", "AATC")
+num_replicates <- 3
+error_rate <- 0.1
+substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.3, " " = 0.1)
+
+# Generate barcode sequences
+barcode_sequences <- r_gpseq_csub(dna_seq, num_replicates, error_rate, substitution_probs)
+
+# Print the resulting barcode sequences
+print(barcode_sequences)
 
 }
