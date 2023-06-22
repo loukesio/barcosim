@@ -23,15 +23,21 @@ library(BarcoSim)
 
 ``` r
 library(Biostrings) # Provides tools for working with biological sequences, such as DNA, RNA, and protein sequences
-library(BarcoSim)   # BarcoSim: A package for simulating barcoded sequencing dat
+library(BarcoSim)   # BarcoSim: A package for simulating barcoded sequencing data
 library(dplyr)      # A powerful package for data manipulation and transformation,
 
 
 set.seed(123)       # sets the random seed to ensure the reproducibility of a random processes (generation of sequences)
 
-df1 <- gpseq(10, 10, 3, 6)
+#num_sequences = Number of sequences to generate 
+#seq_length = Length of each DNA sequence
+#range_start = Start position of the barcoded sequence
+#range_end = End position of the barcoded sequence
 
-gpseq(10, 10, 3, 6) %>% 
+# This function creates 10 parent sequences, each with 10 base pairs. The barcode ranges from base 3 to base 6.
+df1 <- gpseq(num_sequences=10, seq_length=10, range_start=3, range_end=6)
+
+df1 
   DNAStringSet()
 #> DNAStringSet object of length 10:
 #>      width seq
