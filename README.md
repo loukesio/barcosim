@@ -22,16 +22,22 @@ library(BarcoSim)
 ### 1. Use the `gpseq` command to generate the parent sequences.
 
 ``` r
-suppressPackageStartupMessages(library(Biostrings))
-suppressPackageStartupMessages(library(BarcoSim))
-suppressPackageStartupMessages(library(dplyr))
+library(Biostrings) # Provides tools for working with biological sequences, such as DNA, RNA, and protein sequences
+library(BarcoSim)   # BarcoSim: A package for simulating barcoded sequencing data
+library(dplyr)      # A powerful package for data manipulation and transformation,
 
 
-set.seed(123)
+set.seed(123)       # sets the random seed to ensure the reproducibility of a random processes (generation of sequences)
 
-df1 <- gpseq(10, 10, 3, 6)
+#num_sequences = Number of sequences to generate 
+#seq_length = Length of each DNA sequence
+#range_start = Start position of the barcoded sequence
+#range_end = End position of the barcoded sequence
 
-gpseq(10, 10, 3, 6) %>% 
+# This function creates 10 parent sequences, each with 10 base pairs. The barcode ranges from base 3 to base 6.
+df1 <- gpseq(num_sequences=10, seq_length=10, range_start=3, range_end=6)
+
+df1 
   DNAStringSet()
 #> DNAStringSet object of length 10:
 #>      width seq
@@ -52,9 +58,9 @@ gpseq(10, 10, 3, 6) %>%
 ### 2. Use the `r_gpseq` command to replicate parent sequences and make a barcode data set.
 
 ``` r
-suppressPackageStartupMessages(library(Biostrings))
-suppressPackageStartupMessages(library(BarcoSim))
-suppressPackageStartupMessages(library(dplyr))
+library(Biostrings)
+library(BarcoSim)
+library(dplyr)
 
 df1 <- gpseq(10, 10, 3, 6)
 r_gpseq(df1, 4, 0.01) 
@@ -103,4 +109,10 @@ r_gpseq(df1, 4, 0.01)
 
 <sup>Created on 2023-04-15 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
 
+### 3. Use the `r_gpseq_csub` command to replicate parent sequences with a certain error rate and a certain subsitution rate.
 
+```
+dna_seq <- c("AAGA","AATC")
+substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.4, " " = 0.1)
+r_gpseq_csub(dna_seq,3,substitution_probs)
+```
