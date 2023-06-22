@@ -50,7 +50,9 @@ df1 %>%
 ```
 <sup>Created on 2023-04-15 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
 
-<img src="logo/Figure1.png" width=400>
+The outcome of the gpseq contains the conserved sequences from 1-2 and 7-10, and the barcode sequences from 3-6 (see Figure1). In addition with the help of the function `calcSeqSim` we can quantify the similarity among sequences at each base pair.
+
+<img src="logo/Figure1.png" width=500>
 
 
 
