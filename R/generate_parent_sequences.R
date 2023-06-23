@@ -19,19 +19,14 @@
 #' @export
 
 gpseq <- function(num_sequences, seq_length, range_start, range_end) {
-
   # Convert inputs to integers if needed
-  if (!is.integer(num_sequences))
-    num_sequences <- as.integer(num_sequences)
-  if (!is.integer(seq_length))
-    seq_length <- as.integer(seq_length)
-  if (!is.integer(range_start))
-    range_start <- as.integer(range_start)
-  if (!is.integer(range_end))
-    range_end <- as.integer(range_end)
+  num_sequences <- as.integer(num_sequences)
+  seq_length <- as.integer(seq_length)
+  range_start <- as.integer(range_start)
+  range_end <- as.integer(range_end)
 
   # Check if all inputs are integers
-  if (!is.integer(num_sequences) || !is.integer(seq_length) || any(!is.integer(range_start)) || any(!is.integer(range_end))) {
+  if (!is.integer(num_sequences) || !is.integer(seq_length) || !is.integer(range_start) || !is.integer(range_end)) {
     stop("All inputs must be integers.")
   }
 
@@ -73,3 +68,4 @@ gpseq <- function(num_sequences, seq_length, range_start, range_end) {
 
   return(final_seqs)
 }
+
