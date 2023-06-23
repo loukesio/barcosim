@@ -34,10 +34,10 @@ set.seed(123)       # sets the random seed to ensure the reproducibility of a ra
 #range_start = Start position of the barcoded sequence
 #range_end = End position of the barcoded sequence
 
-# This function creates 10 parent sequences, each with 10 base pairs. The barcode ranges from base 3 to base 6.
-df1 <- gpseq(num_sequences=10, seq_length=10, range_start=3, range_end=6)
+# This function creates 5 parent sequences, each with 10 base pairs. The barcode ranges from base 3 to base 6.
+df1.1 <- gpseq(num_sequences=5, seq_length=10, range_start=3, range_end=6)
 
-df1 %>% 
+df1.1 %>% 
   DNAStringSet()
   
 #> DNAStringSet object of length 10:
@@ -47,6 +47,23 @@ df1 %>%
 #> [3]    10 CGGCAAGTAA
 #> [4]    10 CGTCGGGTAA
 #> [5]    10 CGATGCGTAA
+
+# Create five parent sequences, each consisting of 10 base pairs, with multiple barcoded regions spanning from base 2 to base 4 and 
+# from base 6 to base 8.
+
+df1.2 <- gpseq(5,10,range_start=c(2,4), range_end=c(6,8))
+
+df1.2 %>% 
+DNAStringSet()
+
+DNAStringSet object of length 5:
+    width seq
+[1]    10 TATATAGGTC
+[2]    10 TGAGAGAGTC
+[3]    10 TTGGGAGGTC
+[4]    10 TGCATAAGTC
+[5]    10 TTGTCGTGTC
+
 ```
 <sup>Created on 2023-04-15 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
 
