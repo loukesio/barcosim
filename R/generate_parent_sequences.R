@@ -10,21 +10,28 @@
 #' @return A character vector of generated DNA sequences
 #'
 #' @examples
-#' # Create 4 DNA sequneces, 150 bp each, variable in the are between 53-78.
+#' # Create 4 DNA sequences, 150 bp each, variable in the area between 53-78.
 #' gpseq(4,150,53,78)
+#'
+#' # Create 4 DNA sequences, 150 bp each, variable in the areas 20-30, 80-100
+#' gpseq(4,150, c(20,80),c(80,100))
 #'
 #' @export
 
 gpseq <- function(num_sequences, seq_length, range_start, range_end) {
 
-  # Convert inputs to integers
-  num_sequences <- as.integer(num_sequences)
-  seq_length <- as.integer(seq_length)
-  range_start <- as.integer(range_start)
-  range_end <- as.integer(range_end)
+  # Convert inputs to integers if needed
+  if (!is.integer(num_sequences))
+    num_sequences <- as.integer(num_sequences)
+  if (!is.integer(seq_length))
+    seq_length <- as.integer(seq_length)
+  if (!is.integer(range_start))
+    range_start <- as.integer(range_start)
+  if (!is.integer(range_end))
+    range_end <- as.integer(range_end)
 
   # Check if all inputs are integers
-  if (!is.integer(num_sequences) || !is.integer(seq_length) || !is.integer(range_start) || !is.integer(range_end)) {
+  if (!is.integer(num_sequences) || !is.integer(seq_length) || any(!is.integer(range_start)) || any(!is.integer(range_end))) {
     stop("All inputs must be integers.")
   }
 
@@ -39,7 +46,7 @@ gpseq <- function(num_sequences, seq_length, range_start, range_end) {
   }
 
   # Check if the range start and end positions are within the sequence length
-  if (range_start < 1 || range_start > seq_length || range_end < 1 || range_end > seq_length || range_start > range_end) {
+  if (any(range_start < 1) || any(range_start > seq_length) || any(range_end < 1) || any(range_end > seq_length) || any(range_start > range_end)) {
     stop("Invalid range positions. Range start and end must be valid positions within the sequence length.")
   }
 
@@ -55,12 +62,14 @@ gpseq <- function(num_sequences, seq_length, range_start, range_end) {
   # Merge initial and random sequences
   final_seqs <- character(num_sequences)
   for (i in 1:num_sequences) {
-    final_seqs[i] <- paste(substr(initial_seqs[i], 1, range_start-1), substr(random_seqs[i], range_start, range_end), substr(initial_seqs[i], range_end+1, seq_length), sep = "")
+    seq <- initial_seqs[i]
+    for (j in 1:length(range_start)) {
+      start <- range_start[j]
+      end <- range_end[j]
+      seq <- paste(substr(seq, 1, start-1), substr(random_seqs[i], start, end), substr(seq, end+1, seq_length), sep = "")
+    }
+    final_seqs[i] <- seq
   }
 
   return(final_seqs)
 }
-
-
-gpseq(10, 10, 3, 6)
-
