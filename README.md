@@ -69,10 +69,10 @@ DNAStringSet object of length 5:
 
 The outcome of the gpseq contains the conserved sequences from 1-2 and 7-10, and the barcode sequences from 3-6 (see Figure1). In addition with the help of the function `calcSeqSim` we can quantify the similarity among sequences at each base pair.
 
-<img src="logo/Figure1.png" width=500>
-
-
-
+<div>
+    <img align="left" src="logo/Figure1_Barcosim.png" width=400>  
+    <img align="right" src="logo/Figure2_Barcosim.png" width=400>  
+</div>
 
 ### 2. Use the `r_gpseq` command to replicate parent sequences and make a barcode data set.
 
