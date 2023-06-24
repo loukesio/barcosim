@@ -161,14 +161,31 @@ r_gpseq(dna_seq=df1.1,num_replicates=2,error_rate=0.1)
 <sup>Created on 2023-06-24 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
 
 
-### 4. Use the `r_gpseq_csub` command to replicate parent sequences with a certain error rate and a certain subsitution rate.
+### 4. `r_gpseq_csub` replicates parent sequences with a specified error rate while allowing the specification of substitution rates for each base. It is an extension of the r_gpseq function.
 
 - `dna_seq`: A character vector of DNA sequences, obtained as the output of the `gpseq` function.
 - `num_replicates`:  An integer specifying the number of times each parent sequence should be replicated.
 - `error_rate` A numeric value between 0 and 1 representing the probability error rate during the replication process.
 - `substitution_probs` (list of length 5): Includes substitution probabilities for each base (A, C, G, T, and empty string).
-```
-dna_seq <- c("AAGA","AATC")
+
+``` r
+library(BarcoSim)
+
+df1.1 = c("GCTTAGGACG", "GTGTATGGCG", "GCGTACTCCG", "GGGTATGTCG", "GATTAGCTCG")
 substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.4, " " = 0.1)
-r_gpseq_csub(dna_seq,3,substitution_probs)
+
+r_gpseq_csub(dna_seq=df1.1,num_replicates=2,error_rate = 0.1, substitution_probs)
+#>    parent parent_seq  offspring
+#> 1       1 GCTTAGGACG GCTT AGACG
+#> 2       1 GCTTAGGACG GCTTACGACG
+#> 3       2 GTGTATGGCG GTGTAGGGCG
+#> 4       2 GTGTATGGCG GTGTATAGCG
+#> 5       3 GCGTACTCCG GCGTGCTCCG
+#> 6       3 GCGTACTCCG GCGTACGCCG
+#> 7       4 GGGTATGTCG GGGTATGTCG
+#> 8       4 GGGTATGTCG GGGTATGTCG
+#> 9       5 GATTAGCTCG GGTTGGCTCG
+#> 10      5 GATTAGCTCG GAT GGC CG
 ```
+
+<sup>Created on 2023-06-24 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
