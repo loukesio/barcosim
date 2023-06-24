@@ -23,7 +23,10 @@ This function generates DNA sequences by merging an initial DNA sequence
 with random sequences within a specified range.
 }
 \examples{
-# Create 4 DNA sequneces, 150 bp each, variable in the are between 53-78.
+# Create 4 DNA sequences, 150 bp each, variable in the area between 53-78.
 gpseq(4,150,53,78)
+
+# Create 4 DNA sequences, 150 bp each, variable in the areas 20-30, 80-100
+gpseq(4,150, c(20,80),c(80,100))
 
 }
