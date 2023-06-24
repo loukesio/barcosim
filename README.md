@@ -54,7 +54,6 @@ df1.1 %>%
 
 # Create five parent sequences, each consisting of 10 base pairs, with multiple barcoded regions spanning from base 2 to base 3 and 
 # from base 6 to base 8.
-
 df1.2 <- gpseq(5,10,range_start=c(2,6), range_end=c(3,8))
 
 df1.2 %>% 
