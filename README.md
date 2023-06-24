@@ -77,7 +77,56 @@ The outcome of the gpseq contains the conserved sequences from 1-2 and 7-10, and
   <img src="logo/Figure2_Barcosim.png" width="400" />
 </p>
 
-### 2. Use the `calcSeqSim` function to plot sequence similarity across functions
+### 2. Use the `calcSeqSim` function to plot sequence similarity across the parent sequences
+parameters: 
+- `dna_seq`: A character vector of DNA sequences obtained as the output of the `gpseq` function.
+
+Plotting sequence similarity in a sequence with a single barcoded area:
+``` r
+library(BarcoSim)
+library(ggplot2)
+library(dplyr)
+
+df1.1 = c("CGCAGCGTAA", "CGTGTTGTAA", "CGGCAAGTAA", "CGTCGGGTAA", "CGATGCGTAA")
+df1.1
+#> [1] "CGCAGCGTAA" "CGTGTTGTAA" "CGGCAAGTAA" "CGTCGGGTAA" "CGATGCGTAA"
+
+#______________________________________________
+# Find sequence similarity at each position
+#______________________________________________
+calSeqSim(df1.1)
+#> [1] 100 100  40  40  60  40 100 100 100 100
+
+#___________________________
+# plotting example :)
+#____________________________
+# Create the tibble
+df1.1_data <- calSeqSim(df1.1)  %>% 
+  tibble() %>% 
+  dplyr::rename(similarity=1)
+
+# Create the geom area plot
+ggplot(df1.1_data, aes(x = 1:nrow(df1.1_data), y = similarity, fill = similarity)) +
+  geom_area(color = "#333333", fill = "#edae49") +
+  xlab("Base pair (bp)") +
+  ylab("Percentage of Similarity") +
+  ggtitle("Sequnce similarity plot per bp") +
+  scale_x_continuous(breaks=seq(1:10)) +
+  theme(panel.grid = element_blank(),
+        panel.background = element_rect(fill = "white"), 
+        plot.title = element_text(hjust=0.5), 
+        axis.text = element_text(size=12), 
+        axis.ticks.length = unit(.2, "cm")) +
+  geom_vline(xintercept =c(3,6), linetype="dashed")
+
+# similarly you can plot the df1.2 data
+  
+```
+<p float="left">
+  <img src="logo/Figure3_Barcosim.png" width="500" />
+  <img src="logo/Figure4_BarcoSim.png" width="500" />
+</p>
+
 
 ### 3. Use the `r_gpseq` command to replicate parent sequences and make a barcode data set. 
  Parameters:
@@ -112,8 +161,12 @@ r_gpseq(dna_seq=df1.1,num_replicates=2,error_rate=0.1)
 <sup>Created on 2023-06-24 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
 
 
-### 3. Use the `r_gpseq_csub` command to replicate parent sequences with a certain error rate and a certain subsitution rate.
+### 4. Use the `r_gpseq_csub` command to replicate parent sequences with a certain error rate and a certain subsitution rate.
 
+- `dna_seq`: A character vector of DNA sequences, obtained as the output of the `gpseq` function.
+- `num_replicates`:  An integer specifying the number of times each parent sequence should be replicated.
+- `error_rate` A numeric value between 0 and 1 representing the probability error rate during the replication process.
+- `substitution_probs` (list of length 5): Includes substitution probabilities for each base (A, C, G, T, and empty string).
 ```
 dna_seq <- c("AAGA","AATC")
 substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.4, " " = 0.1)
