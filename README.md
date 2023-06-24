@@ -20,6 +20,15 @@ library(BarcoSim)
 ```
 
 ### 1. Use the `gpseq` command to generate the parent sequences.
+ Parameters:
+- `num_sequences`: An integer specifying the number of DNA sequences to generate.
+
+- `seq_length`: An integer representing the length of each DNA sequence.
+
+- `range_start`: An integer indicating the start position of the barcoded sequence.
+
+- `range_end`: An integer indicating the end position of the barcoded sequence.
+
 
 ``` r
 library(Biostrings) # Provides tools for working with biological sequences, such as DNA, RNA, and protein sequences
@@ -28,11 +37,6 @@ library(dplyr)      # A powerful package for data manipulation and transformatio
 
 
 set.seed(123)       # sets the random seed to ensure the reproducibility of a random processes (generation of sequences)
-
-#num_sequences = Number of sequences to generate 
-#seq_length = Length of each DNA sequence
-#range_start = Start position of the barcoded sequence
-#range_end = End position of the barcoded sequence
 
 # This function creates 5 parent sequences, each with 10 base pairs and a single barcode area spanning from base 3 to base 6.
 df1.1 <- gpseq(num_sequences=5, seq_length=10, range_start=3, range_end=6)
@@ -74,59 +78,39 @@ The outcome of the gpseq contains the conserved sequences from 1-2 and 7-10, and
   <img src="logo/Figure2_Barcosim.png" width="400" />
 </p>
 
-### 2. Use the `r_gpseq` command to replicate parent sequences and make a barcode data set.
+### 2. Use the `calcSeqSim` function to plot sequence similarity across functions
+
+### 3. Use the `r_gpseq` command to replicate parent sequences and make a barcode data set. 
+ Parameters:
+
+- `dna_seq`: A character vector of DNA sequences, obtained as the output of the `gpseq` function.
+
+- `num_replicates`: An integer specifying the number of times each parent sequence should be replicated.
+
+- `error_rate`: A numeric value representing the probability error rate during the replication process.
 
 ``` r
-library(Biostrings)
 library(BarcoSim)
-library(dplyr)
 
-df1 <- gpseq(10, 10, 3, 6)
-r_gpseq(df1, 4, 0.01) 
+print(df1.1)
+#> [1] "CGCAGCGTAA" "CGTGTTGTAA" "CGGCAAGTAA" "CGTCGGGTAA" "CGATGCGTAA"
+
+#With the current parameters of the r_gpseq function, you can replicate each parent DNA sequence in dna_seq twice with a 0.1 probability error rate.
+
+r_gpseq(dna_seq=df1.1,num_replicates=2,error_rate=0.1)
 #>    parent parent_seq  offspring
-#> 1       1 GTGGTGGTTT GTGGTGGTTT
-#> 2       1 GTGGTGGTTT GTGGTGGTTT
-#> 3       1 GTGGTGGTTT GTGGTGGTTT
-#> 4       1 GTGGTGGTTT GTGGTGGTTT
-#> 5       2 GTAGCCGTTT GTAGCCGTTT
-#> 6       2 GTAGCCGTTT GTAGCCGTTT
-#> 7       2 GTAGCCGTTT GTAGCCGTTT
-#> 8       2 GTAGCCGTTT GTAGCCGTTT
-#> 9       3 GTGGACGTTT GTGGACGTTT
-#> 10      3 GTGGACGTTT GTGGACGTTT
-#> 11      3 GTGGACGTTT GTGGACGTTT
-#> 12      3 GTGGACGTTT GTGGACGTTT
-#> 13      4 GTCACCGTTT GTCACCGTTT
-#> 14      4 GTCACCGTTT GTCACCGTTT
-#> 15      4 GTCACCGTTT GTCACCGTTT
-#> 16      4 GTCACCGTTT GTCACCGTTT
-#> 17      5 GTGGAGGTTT GTGGAGGTTT
-#> 18      5 GTGGAGGTTT GTGGAGGTTT
-#> 19      5 GTGGAGGTTT GTGGAGGTTT
-#> 20      5 GTGGAGGTTT GTGGAGGTTT
-#> 21      6 GTTTCAGTTT GTTTCAGTTT
-#> 22      6 GTTTCAGTTT GTTTCAGTTT
-#> 23      6 GTTTCAGTTT GTTTCAGTTT
-#> 24      6 GTTTCAGTTT GTTTCAGTTT
-#> 25      7 GTGGCTGTTT GTGGCTGTTT
-#> 26      7 GTGGCTGTTT GTGGCTGTTT
-#> 27      7 GTGGCTGTTT GTGGCTGTTT
-#> 28      7 GTGGCTGTTT GTGGCTGTTT
-#> 29      8 GTACATGTTT GTACATGTTT
-#> 30      8 GTACATGTTT GTACATGTTT
-#> 31      8 GTACATGTTT GTACATGTTT
-#> 32      8 GTACATGTTT GTACATGTTT
-#> 33      9 GTGCCGGTTT GTGCCGGTTT
-#> 34      9 GTGCCGGTTT GTGCCGGTTT
-#> 35      9 GTGCCGGTTT GTGCCGGTTT
-#> 36      9 GTGCCGGTTT GTGCCGGTTT
-#> 37     10 GTGAATGTTT GTGAATGTTT
-#> 38     10 GTGAATGTTT GTGAATGTTT
-#> 39     10 GTGAATGTTT GTGAATGTTT
-#> 40     10 GTGAATGTTT GTGAATGTTT
+#> 1       1 CGCAGCGTAA CGGTGCGTAA
+#> 2       1 CGCAGCGTAA CGCAGCGTAA
+#> 3       2 CGTGTTGTAA CGTGTTGTAC
+#> 4       2 CGTGTTGTAA CGTGTTGTAA
+#> 5       3 CGGCAAGTAA CGGCAAGTAA
+#> 6       3 CGGCAAGTAA CCGCAAGTAA
+#> 7       4 CGTCGGGTAA CGTCGGGTAC
+#> 8       4 CGTCGGGTAA  GTCGGGTAA
+#> 9       5 CGATGCGTAA  GATGCGTAA
+#> 10      5 CGATGCGTAA CCATGCGTAA
 ```
-<sup>Created on 2023-04-15 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
-</div>
+<sup>Created on 2023-06-24 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
 
 
 ### 3. Use the `r_gpseq_csub` command to replicate parent sequences with a certain error rate and a certain subsitution rate.
