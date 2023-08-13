@@ -1,0 +1,53 @@
+---
+title: "Simulating Barcoded Sequencing Data with BarcoSim"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{BarcoSim-vignette}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) 
+library(BarcoSim)
+```
+
+<h1>Introduction</h1>
+
+<p>Barcoded sequencing is a technique used in genomics research to simultaneously sequence many samples while identifying the sample origin of each sequence. The BarcoSim R package provides tools to simulate barcoded sequencing data for testing analysis methods.</p>
+
+<p>Key features:</p>
+
+<ul>
+<li>Generate parent DNA sequences with specified barcode regions</li>  
+<li>Analyze similarity across barcode regions</li>
+<li>Replicate sequences with errors to mimic sequencing</li>
+<li>Analyze and process the simulated data</li>
+</ul>
+
+<h1>Generating Parent Sequences</h1>
+
+<p>The `gpseq()` function creates the initial parent DNA sequences with defined barcode regions:</p>
+
+```{r gpseq, echo=TRUE}
+library(BarcoSim) 
+
+# 5 sequences of length 10 with barcodes from 3-6
+seqs <- gpseq(5, 10, 3, 6)  
+
+print(seqs)
+```
+
+<p>Multiple discontinuous barcode regions can be specified using vectors for `range_start` and `range_end`.</p> <h1>Analyzing Similarity</h1> <p>`calcSeqSim()` computes the percentage similarity at each position:</p>
+
+```{r calcSeqSim, echo=TRUE}
+library(ggplot2)
+
+sim <- calcSeqSim(seqs)
+
+# Plot similarity  
+ggplot(sim, aes(x=1:10, y=sim)) +
+  geom_line()
+```
