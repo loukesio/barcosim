@@ -1,24 +1,23 @@
 #' Generate DNA sequences by merging initial and random sequences
 #'
 #' This function generates DNA sequences by merging an initial DNA sequence
-#' with random sequences within a specified range.
+#' with random sequences within a specified range. If `color` is set to "yes",
+#' the sequences will be colored based on nucleotide type.
 #'
 #' @param num_sequences Number of sequences to generate (positive integer)
 #' @param seq_length Length of each DNA sequence (positive integer)
 #' @param range_start Start position of the range within the sequence (integer, 1 to seq_length)
 #' @param range_end End position of the range within the sequence (integer, 1 to seq_length, greater than or equal to range_start)
-#' @return A character vector of generated DNA sequences
+#' @param color A character string, either "yes" or "no", indicating if the sequences should be colored.
+#' @return A character vector of generated DNA sequences (when color="no") or printed colored sequences (when color="yes")
 #'
 #' @examples
-#' # Create 4 DNA sequences, 150 bp each, variable in the area between 53-78.
-#' gpseq(4,150,53,78)
-#'
-#' # Create 4 DNA sequences, 150 bp each, variable in the areas 20-30, 80-100
-#' gpseq(4,150, c(20,80),c(80,100))
+#' # Create 4 DNA sequences, 150 bp each, variable in the area between 53-78, and colored.
+#' gpseq(4,150,53,78, color="yes")
 #'
 #' @export
 
-gpseq <- function(num_sequences, seq_length, range_start, range_end) {
+gpseq <- function(num_sequences, seq_length, range_start, range_end, color = "no") {
   # Convert inputs to integers if needed
   num_sequences <- as.integer(num_sequences)
   seq_length <- as.integer(seq_length)
@@ -66,6 +65,36 @@ gpseq <- function(num_sequences, seq_length, range_start, range_end) {
     final_seqs[i] <- seq
   }
 
-  return(final_seqs)
+  # If color is set to "yes", color the final sequences
+  if (tolower(color) == "yes") {
+    colorDNASequences(final_seqs)
+  } else {
+    return(final_seqs)
+  }
 }
+
+colorDNASequences <- function(dna_sequences) {
+  # Define background colors for bases
+  base_backgrounds <- c(A = "\033[41m", T = "\033[42m", G = "\033[44m", C = "\033[43m") # Red, Green, Blue, Yellow background
+
+  # Iterate over each DNA sequence
+  for (dna_sequence in dna_sequences) {
+    # Convert the sequence to uppercase to handle both upper and lower case letters
+    sequence <- toupper(dna_sequence)
+
+    # Iterate over each base in the sequence
+    bases <- strsplit(sequence, "")[[1]]
+    for (i in seq_along(bases)) {
+      # Get the current base and background color
+      base <- bases[i]
+      background_color <- base_backgrounds[base]
+
+      # Print the base surrounded by color with black foreground and background color
+      cat(paste0("\033[30m", background_color, base, "\033[0m"))
+    }
+
+    cat("\n")  # Print a new line after each sequence
+  }
+}
+
 
