@@ -36,6 +36,8 @@ dna_seq <- c("AAGA", "AATC")
 num_replicates <- 3
 error_rate <- 0.1
 substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.3, " " = 0.1)
-barcode_sequences <- r_gpseq_csub(dna_seq, num_replicates, error_rate, substitution_probs, color = "yes")
+barcode_sequences <- r_gpseq_csub(dna_seq,
+ num_replicates, error_rate, substitution_probs,
+ color = "yes")
 
 }
