@@ -2,36 +2,40 @@
 % Please edit documentation in R/replicate_gpseq_custom.R
 \name{r_gpseq_csub}
 \alias{r_gpseq_csub}
-\title{Create barcode sequences from parent sequences but with non random substitutions}
+\title{Create barcode sequences from parent sequences with non-random substitutions.}
 \usage{
-r_gpseq_csub(dna_seq, num_replicates, error_rate, substitution_probs)
+r_gpseq_csub(
+  dna_seq,
+  num_replicates,
+  error_rate,
+  substitution_probs,
+  color = "no"
+)
 }
 \arguments{
-\item{dna_seq}{A character vector of DNA sequences.}
+\item{dna_seq}{A character vector of parent DNA sequences.}
 
-\item{num_replicates}{An integer specifying the number of replicates for each DNA sequence.}
+\item{num_replicates}{An integer specifying the number of offspring sequences per parent.}
 
-\item{error_rate}{A number between 0 and 1 representing the error rate for base substitution.}
+\item{error_rate}{A numeric value (0-1) indicating the likelihood of a substitution at each base.}
 
-\item{substitution_probs}{A list of length 5 containing the substitution probabilities for each base (A, C, G, T, and empty string).}
+\item{substitution_probs}{A named list indicating the substitution probabilities for each base (A, C, G, T, and '').}
+
+\item{color}{A character flag. If set to "yes", the function will output color-coded sequences.}
 }
 \value{
-A data frame containing the replicated barcode sequences.
+A data frame containing the parent sequence, the offspring sequences, and parent index.
+        If color is "yes", sequences are printed with color-coding and the function returns NULL.
 }
 \description{
-#for each the parent sequence coming from the gpseq function, create n offspring sequences with a substitution rate of your interest.
+Given parent DNA sequences, this function generates offspring sequences with potential substitutions.
+Substitutions are determined by an error rate and a specified set of substitution probabilities.
 }
 \examples{
-# Example data
 dna_seq <- c("AAGA", "AATC")
 num_replicates <- 3
 error_rate <- 0.1
 substitution_probs <- list("A" = 0.1, "C" = 0.2, "G" = 0.3, "T" = 0.3, " " = 0.1)
-
-# Generate barcode sequences
-barcode_sequences <- r_gpseq_csub(dna_seq, num_replicates, error_rate, substitution_probs)
-
-# Print the resulting barcode sequences
-print(barcode_sequences)
+barcode_sequences <- r_gpseq_csub(dna_seq, num_replicates, error_rate, substitution_probs, color = "yes")
 
 }

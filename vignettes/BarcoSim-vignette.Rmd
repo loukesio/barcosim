@@ -41,13 +41,3 @@ print(seqs)
 ```
 
 <p>Multiple discontinuous barcode regions can be specified using vectors for `range_start` and `range_end`.</p> <h1>Analyzing Similarity</h1> <p>`calcSeqSim()` computes the percentage similarity at each position:</p>
-
-```{r calcSeqSim, echo=TRUE}
-library(ggplot2)
-
-sim <- calcSeqSim(seqs)
-
-# Plot similarity  
-ggplot(sim, aes(x=1:10, y=sim)) +
-  geom_line()
-```

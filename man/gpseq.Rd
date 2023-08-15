@@ -4,7 +4,7 @@
 \alias{gpseq}
 \title{Generate DNA sequences by merging initial and random sequences}
 \usage{
-gpseq(num_sequences, seq_length, range_start, range_end)
+gpseq(num_sequences, seq_length, range_start, range_end, color = "no")
 }
 \arguments{
 \item{num_sequences}{Number of sequences to generate (positive integer)}
@@ -14,19 +14,19 @@ gpseq(num_sequences, seq_length, range_start, range_end)
 \item{range_start}{Start position of the range within the sequence (integer, 1 to seq_length)}
 
 \item{range_end}{End position of the range within the sequence (integer, 1 to seq_length, greater than or equal to range_start)}
+
+\item{color}{A character string, either "yes" or "no", indicating if the sequences should be colored.}
 }
 \value{
-A character vector of generated DNA sequences
+A character vector of generated DNA sequences (when color="no") or printed colored sequences (when color="yes")
 }
 \description{
 This function generates DNA sequences by merging an initial DNA sequence
-with random sequences within a specified range.
+with random sequences within a specified range. If `color` is set to "yes",
+the sequences will be colored based on nucleotide type.
 }
 \examples{
-# Create 4 DNA sequences, 150 bp each, variable in the area between 53-78.
-gpseq(4,150,53,78)
-
-# Create 4 DNA sequences, 150 bp each, variable in the areas 20-30, 80-100
-gpseq(4,150, c(20,80),c(80,100))
+# Create 4 DNA sequences, 150 bp each, variable in the area between 53-78, and colored.
+gpseq(4,150,53,78, color="yes")
 
 }

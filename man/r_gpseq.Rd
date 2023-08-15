@@ -4,7 +4,7 @@
 \alias{r_gpseq}
 \title{Create barcode sequences from parent sequences}
 \usage{
-r_gpseq(dna_seq, num_replicates, error_rate)
+r_gpseq(dna_seq, num_replicates, error_rate, color = "no")
 }
 \arguments{
 \item{dna_seq}{A character, output from gpseq}
@@ -12,6 +12,8 @@ r_gpseq(dna_seq, num_replicates, error_rate)
 \item{num_replicates}{A numeric value}
 
 \item{error_rate}{A numeric value from 0 to 1}
+
+\item{color}{A character string, either "yes" or "no", indicating if the sequences should be colored.}
 }
 \value{
 a data.frame
@@ -22,6 +24,6 @@ created from the gpseq function.
 }
 \examples{
 dna_seq <- c("AAGA","AATC")
-r_gpseq(dna_seq,3,0.1) #create 3 offspring sequences with random substitution
+r_gpseq(dna_seq,3,0.1, color="yes") #create 3 offspring sequences with random substitution
 
 }
