@@ -1,6 +1,9 @@
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/icon)](https://cran.r-project.org/package=icons)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
+[![Last Commit](https://img.shields.io/github/last-commit/loukesio/barcosim.svg)](https://github.com/loukesio/barcosim/commits/main)
+[![GitHub Contributors](https://img.shields.io/github/contributors/loukesio/barcosim.svg)](https://github.com/loukesio/barcosim/graphs/contributors)
+[![Codecov test coverage](https://codecov.io/gh/loukesio/barcosim/branch/main/graph/badge.svg)](https://codecov.io/gh/loukesio/barcosim?branch=main)
+[![Lifecycle: Experimental](https://img.shields.io/badge/lifecycle-experimental-blueviolet.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
 
 ## Install the BarcoSim package
 Install the package using the following commands  <img align="right" src="logo/BarcoSim_Logo.png" width=400>
